@@ -4,31 +4,31 @@
 #if defined(__MSP430G2553)
 #define SPIDIV     SPI_CLOCK_DIV2       // 16 MHz/2 gives 125 ns for each on bit in byte
 #define SPILONG    0b11111100           // 750 ns (acceptable "on" range 550 to 850 ns)
-#define SPISHORT   0b11100000           // 375 ns (acceptable "on" range 200 to 500 ns)
+#define SPISHORT   0b11100000           // 375 ns (acceptable "off" range 200 to 500 ns)
 #elif defined(__MSP430F5529)
 #define SPIDIV     SPI_CLOCK_DIV4       // 25.6 MHz/4 gives 156.25 ns for each on bit in byte
 #define SPILONG    0b11110000           // 625 ns (acceptable "on" range 550 to 850 ns)
-#define SPISHORT   0b11000000           // 312.5 ns (acceptable "on" range 200 to 500 ns)
+#define SPISHORT   0b11000000           // 312 ns (acceptable "off" range 200 to 500 ns)
 #elif defined(__MSP432P401R__)
 #define SPIDIV     3                    // 16 MHz/2 gives 125 ns for each on bit in byte
 #define SPILONG    0b00001111           // 750 ns (acceptable "on" range 550 to 850 ns)
-#define SPISHORT   0b00000011           // 375 ns (acceptable "on" range 200 to 500 ns)
+#define SPISHORT   0b00000011           // 375 ns (acceptable "off" range 200 to 500 ns)
 #elif defined(BOARD_CC1310_LAUNCHXL)
 #define SPIDIV     3                    // 16 MHz/2 gives 125 ns for each on bit in byte
 #define SPILONG    0b00001111           // 750 ns (acceptable "on" range 550 to 850 ns)
-#define SPISHORT   0b00000011           // 375 ns (acceptable "on" range 200 to 500 ns)
+#define SPISHORT   0b00000011           // 375 ns (acceptable "off" range 200 to 500 ns)
 #elif defined(ENERGIA_EK_TM4C123GXL)
-#define SPIDIV     8                    // 80 MHz/4 gives 125 ns for each on bit in byte
+#define SPIDIV     SPI_CLOCK_DIV2       // 8 MHz gives 125 ns for each on bit in byte
 #define SPILONG    0b00111111           // 750 ns (acceptable "on" range 550 to 850 ns)
-#define SPISHORT   0b00000111           // 375 ns (acceptable "on" range 200 to 500 ns)
+#define SPISHORT   0b00000111           // 375 ns (acceptable "off" range 200 to 500 ns)
 #elif defined(ENERGIA_EK_TM4C1294XL)
-#define SPIDIV     12                   // 80 MHz/4 gives 125 ns for each on bit in byte
+#define SPIDIV     SPI_CLOCK_DIV2       // 8 MHz gives 125 ns for each on bit in byte
 #define SPILONG    0b00111111           // 750 ns (acceptable "on" range 550 to 850 ns)
-#define SPISHORT   0b00000111           // 375 ns (acceptable "on" range 200 to 500 ns)
+#define SPISHORT   0b00000111           // 375 ns (acceptable "off" range 200 to 500 ns)
 #elif defined(ENERGIA_ARCH_CC3200)
-#define SPIDIV     SPI_CLOCK_DIV2       // 80 MHz/4 gives 125 ns for each on bit in byte
+#define SPIDIV     SPI_CLOCK_DIV2       // 8 MHz gives 125 ns for each on bit in byte
 #define SPILONG    0b11111100           // 750 ns (acceptable "on" range 550 to 850 ns)
-#define SPISHORT   0b11100000           // 375 ns (acceptable "on" range 200 to 500 ns)
+#define SPISHORT   0b11100000           // 375 ns (acceptable "off" range 200 to 500 ns)
 #else
 #error This microcontroller is not supported
 #endif
@@ -37,6 +37,7 @@ WS2812::WS2812(uint16_t n, uint8_t t)
 {
   updateType(t);
   updateLength(n);
+  clear();
 }
 
 WS2812::~WS2812() {
